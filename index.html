@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>选择视频并获取视频信息</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" type="text/css" media="screen" href="index.css" /> -->
+	<style>
+	#video{
+		background: #333333;;
+	}
+	
+	</style>
+</head>
+
+<body>
+	<video id="video" controls="controls" oncanplaythrough="getInfo(this)" width="600" height="338"></video>
+
+	<div style="padding:20px;">
+		<input type="file" accept="video/*" onchange="changeFile(this)">
+		<button id="pause">播放/暂停</button>
+	</div>
+
+</body>
+<script>
+	let video = document.getElementById('video')
+
+	let changeFile = (e) => {
+		if(e.files[0]){
+			// console.log(e.files[0])
+			let url = window.URL.createObjectURL(e.files[0]);
+			video.src = url
+			console.log('大小',(e.files[0].size/1024/1024).toFixed(2),'M')
+		}
+	}
+
+	let getInfo = (e) => {
+		// console.log(e)
+		console.log('宽',e.videoWidth)
+		console.log('高',e.videoHeight)
+		console.log('时长',e.duration)
+		console.log('是否暂停',e.paused)
+	}
+	// 暂停/播放
+	let pause = document.getElementById('pause');
+	pause.onclick = () => {
+		// console.log(video)
+		if (video.paused) {
+			video.play();
+			bIsPause = false;
+		} else {
+			video.pause();
+			bIsPause = true
+		}
+	}
+</script>
+
+</html>
